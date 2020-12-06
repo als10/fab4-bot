@@ -24,14 +24,14 @@ def main():
         with open("posts_replied_to.txt", "r") as f:
             posts_replied_to = list(filter(None, f.read().split("\n")))
         
-    subreddit = reddit.subreddit('pythonforengineers')
+    subreddit = reddit.subreddit('Cricket')
     for submission in subreddit.stream.submissions(pause_after=-1):
-        if submission.id not in posts_replied_to and submission is not None:
+        if submission is not None and submission.id not in posts_replied_to:
             if check_text_for_keywords(submission.title):
                 submission.reply(copypasta)
                 posts_replied_to.append(submission.id)
     for comment in subreddit.stream.comments(pause_after=-1):
-        if comment.id not in posts_replied_to and comment is not None:
+        if comment is not None and comment.id not in posts_replied_to:
             if check_text_for_keywords(comment.body):
                 comment.reply(copypasta)
                 posts_replied_to.append(comment.id)
