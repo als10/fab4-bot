@@ -25,19 +25,24 @@ def main():
             posts_replied_to = list(filter(None, f.read().split("\n")))
         
     subreddit = reddit.subreddit('Cricket')
-    for submission in subreddit.stream.submissions(pause_after=-1):
-        if submission is not None and submission.id not in posts_replied_to:
-            if check_text_for_keywords(submission.title):
-                submission.reply(copypasta)
-                posts_replied_to.append(submission.id)
-    for comment in subreddit.stream.comments(pause_after=-1):
-        if comment is not None and comment.id not in posts_replied_to:
-            if check_text_for_keywords(comment.body):
-                comment.reply(copypasta)
-                posts_replied_to.append(comment.id)
-    with open("posts_replied_to.txt", "w") as f:
-        for post_id in posts_replied_to:
-            f.write(post_id + "\n")
+    while True:
+        for submission in subreddit.stream.submissions(pause_after=-1):
+            if submission is None:
+                break
+            if submission.id not in posts_replied_to:
+                if check_text_for_keywords(submission.title):
+                    submission.reply(copypasta)
+                    posts_replied_to.append(submission.id)
+        for comment in subreddit.stream.comments(pause_after=-1):
+            if comment is None:
+                break
+            if comment.id not in posts_replied_to:
+                if check_text_for_keywords(comment.body):
+                    comment.reply(copypasta)
+                    posts_replied_to.append(comment.id)
+        with open("posts_replied_to.txt", "w") as f:
+            for post_id in posts_replied_to:
+                f.write(post_id + "\n")
 
 def check_text_for_keywords(text):
     fab, babar = False, False
