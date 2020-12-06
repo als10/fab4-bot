@@ -1,6 +1,6 @@
 import praw
-from urllib.parse import quote_plus
 import os
+import time
 
 reddit = praw.Reddit(
     user_agent="Fab4 Bot",
@@ -43,6 +43,7 @@ def main():
         with open("posts_replied_to.txt", "w") as f:
             for post_id in posts_replied_to:
                 f.write(post_id + "\n")
+        time.sleep(1000)
 
 def check_text_for_keywords(text):
     fab, babar = False, False
