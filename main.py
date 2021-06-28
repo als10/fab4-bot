@@ -2,13 +2,7 @@ import praw
 import os
 import time
 
-reddit = praw.Reddit(
-    user_agent="Fab4 Bot",
-    client_id="bYUjhuL-6FA_mg",
-    client_secret="j6rxSyrIASuayUlE05QtUcnF8wMw8A",
-    username="fab4-bot",
-    password="password2003"
-)
+reddit = praw.Reddit("bot1", user_agent="bot1 user agent")
 
 copypasta = '''
 The Fab 4 was actually a creation by the late Martin Crowe, who wrote an article in the mid 2010s about four young batsmen who were destined to lead their respective countries in the future. It's not a something you can just 'join'; it's an exclusive club for these four cricketers.
